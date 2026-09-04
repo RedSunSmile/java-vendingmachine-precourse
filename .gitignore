@@ -34,3 +34,6 @@ out/
 # 개인 메모 (커밋하지 않음)
 docs/devlog.md
 docs/private-notes.md
+
+# macOS
+.DS_Store
