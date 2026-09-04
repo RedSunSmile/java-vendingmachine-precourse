@@ -28,8 +28,8 @@ public class CoinGenerator {
                 }
             }
             int picked = Randoms.pickNumberInList(candidates);
-            result.put(Coin.from(picked), result.get(Coin.from(picked))+1);
-            remain-=picked;
+            result.put(Coin.from(picked), result.get(Coin.from(picked)) + 1);
+            remain -= picked;
         }
     }
 }

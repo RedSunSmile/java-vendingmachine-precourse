@@ -2,9 +2,9 @@ package vendingmachine.domain;
 
 public class Product {
 
-    private String item;
-    private int price;
-    private int count;
+    private final String item;
+    private final int price;
+    private final int count;
 
     public Product(String item, int price, int count) {
         this.item = item;
