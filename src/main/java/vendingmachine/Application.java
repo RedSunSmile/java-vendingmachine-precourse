@@ -1,6 +1,7 @@
 package vendingmachine;
 
 import vendingmachine.domain.Coins;
+import vendingmachine.domain.HoldingAmount;
 import vendingmachine.domain.Product;
 import vendingmachine.domain.Products;
 import vendingmachine.service.CoinGenerator;
@@ -16,13 +17,15 @@ public class Application {
         InputView inputView = new InputView();
 
         CoinGenerator coinGenerator = new CoinGenerator();
-        Map<Coin, Integer> coins = coinGenerator.generate(inputView.inputOfVendingMachine());
+        HoldingAmount holdingAmount = new HoldingAmount(inputView.inputOfVendingMachine());
+        Map<Coin, Integer> coins = coinGenerator.generate(holdingAmount.getAmount());
         OutputView outputView = new OutputView();
         Coins sources = new Coins(coins);
         outputView.coinsInVendingMachine(sources);
+
         String productInput = inputView.inputOfProduct();
         Products products = new Products(productInput);
-        int insertedMoney=inputView.inputOfMoney();
+        int insertedMoney = inputView.inputOfMoney();
         outputView.insertedAmount(insertedMoney);
     }
 }

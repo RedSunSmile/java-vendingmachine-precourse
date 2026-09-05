@@ -13,7 +13,7 @@ public class InputView {
 
     public String inputOfProduct() {
         System.out.println("상품명과 가격, 수량을 입력해 주세요.");
-        return  Console.readLine();
+        return Console.readLine();
     }
 
     public int inputOfMoney() {
