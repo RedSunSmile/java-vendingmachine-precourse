@@ -4,7 +4,6 @@ import vendingmachine.Coin;
 import vendingmachine.domain.Coins;
 
 public class OutputView {
-
     public void coinsInVendingMachine(Coins coins) {
         System.out.println("자판기가 보유한 동전");
         for (Coin coin : Coin.values()) {
@@ -12,11 +11,18 @@ public class OutputView {
         }
     }
 
-    public void resultOfInputtingCoins(int coins) {
-        System.out.println("투입금액: " + coins);
+    public void insertedAmount(int amount) {
+        System.out.println("투입 금액: " + amount + "원");
+    }
+
+    public void returnedCoins(Coins changesCoins) {
         System.out.println("잔돈");
-        System.out.println("100원 - " + coins + "개");
-        System.out.println("50원 - " + coins + "개");
+        for (Coin coin : Coin.values()) {
+            if (changesCoins.countOf(coin) > 0) {
+                System.out.println(coin.getAmount() + "원 - " + changesCoins.countOf(coin) + "개");
+            }
+        }
     }
 
 }
+
