@@ -16,7 +16,7 @@ public class InputView {
         return  Console.readLine();
     }
 
-    public int inputOfPrice() {
+    public int inputOfMoney() {
         System.out.println("투입 금액을 입력해 주세요.");
         int price = Integer.parseInt(Console.readLine());
         return price;

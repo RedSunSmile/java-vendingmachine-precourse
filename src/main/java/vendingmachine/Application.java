@@ -7,6 +7,7 @@ import vendingmachine.service.CoinGenerator;
 import vendingmachine.ui.InputView;
 import vendingmachine.ui.OutputView;
 
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,8 +20,9 @@ public class Application {
         OutputView outputView = new OutputView();
         Coins sources = new Coins(coins);
         outputView.coinsInVendingMachine(sources);
-        String productInput= inputView.inputOfProduct();
-        Products products=new Products(productInput);
-
+        String productInput = inputView.inputOfProduct();
+        Products products = new Products(productInput);
+        int insertedMoney=inputView.inputOfMoney();
+        outputView.insertedAmount(insertedMoney);
     }
 }
