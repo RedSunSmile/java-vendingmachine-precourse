@@ -4,7 +4,7 @@ public class Product {
 
     private final String item;
     private final int price;
-    private final int count;
+    private int count;
 
     public Product(String item, int price, int count) {
         this.item = item;
@@ -22,6 +22,17 @@ public class Product {
 
     public int takeCount() {
         return count;
+    }
+
+    public void reduceCount(){
+        if(count<=0){
+            throw new IllegalArgumentException("[ERROR] 재고수량은 양수여야 합니다.");
+        }
+        count--;
+    }
+
+    public boolean isSoldOut() {
+        return count <= 0;
     }
 
 }
