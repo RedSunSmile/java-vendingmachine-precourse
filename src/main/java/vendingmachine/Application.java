@@ -1,9 +1,6 @@
 package vendingmachine;
 
-import vendingmachine.domain.Coins;
-import vendingmachine.domain.HoldingAmount;
-import vendingmachine.domain.Product;
-import vendingmachine.domain.Products;
+import vendingmachine.domain.*;
 import vendingmachine.service.CoinGenerator;
 import vendingmachine.ui.InputView;
 import vendingmachine.ui.OutputView;
@@ -26,6 +23,13 @@ public class Application {
         String productInput = inputView.inputOfProduct();
         Products products = new Products(productInput);
         int insertedMoney = inputView.inputOfMoney();
-        outputView.insertedAmount(insertedMoney);
+        InsertedAmount insertedAmount=new InsertedAmount(insertedMoney);
+        VendingMachine vendingMachine=new VendingMachine(products,insertedAmount);
+
+        while(!vendingMachine.isFinished()){
+            outputView.insertedAmount(insertedAmount.takeAmount());
+            String itemName=inputView.inputOfItemName();
+            vendingMachine.buy(itemName);
+        }
     }
 }
