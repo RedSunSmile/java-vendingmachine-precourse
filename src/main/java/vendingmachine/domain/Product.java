@@ -24,8 +24,8 @@ public class Product {
         return count;
     }
 
-    public void reduceCount(){
-        if(count<=0){
+    public void reduceCount() {
+        if (count <= 0) {
             throw new IllegalArgumentException("[ERROR] 재고수량은 양수여야 합니다.");
         }
         count--;
