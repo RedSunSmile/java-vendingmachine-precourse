@@ -23,13 +23,16 @@ public class Application {
         String productInput = inputView.inputOfProduct();
         Products products = new Products(productInput);
         int insertedMoney = inputView.inputOfMoney();
-        InsertedAmount insertedAmount=new InsertedAmount(insertedMoney);
-        VendingMachine vendingMachine=new VendingMachine(products,insertedAmount);
+        InsertedAmount insertedAmount = new InsertedAmount(insertedMoney);
+        VendingMachine vendingMachine = new VendingMachine(products, insertedAmount);
 
-        while(!vendingMachine.isFinished()){
+        while (!vendingMachine.isFinished()) {
             outputView.insertedAmount(insertedAmount.takeAmount());
-            String itemName=inputView.inputOfItemName();
+            String itemName = inputView.inputOfItemName();
             vendingMachine.buy(itemName);
         }
+        outputView.insertedAmount(insertedAmount.takeAmount());
+        Coins changes=sources.change(insertedAmount.takeAmount());
+        outputView.returnedCoins(changes);
     }
 }
