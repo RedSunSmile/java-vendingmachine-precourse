@@ -21,15 +21,21 @@ public class CoinGenerator {
 
     private static void calculateAboutCoins(int remain, Map<Coin, Integer> result) {
         while (remain > 0) {
-            List<Integer> candidates = new ArrayList<>();
-            for (Coin coin : Coin.values()) {
-                if (coin.getAmount() <= remain) {
-                    candidates.add(coin.getAmount());
-                }
-            }
+            List<Integer> candidates = candidatesUnder(remain);
             int picked = Randoms.pickNumberInList(candidates);
             result.put(Coin.from(picked), result.get(Coin.from(picked)) + 1);
             remain -= picked;
         }
+    }
+
+//자판기 보유잔돈 새로만들기
+    private static List<Integer> candidatesUnder(int remain) {
+        List<Integer> candidates = new ArrayList<>();
+        for (Coin coin : Coin.values()) {
+            if (coin.getAmount() <= remain) {
+                candidates.add(coin.getAmount());
+            }
+        }
+        return candidates;
     }
 }
