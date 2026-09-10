@@ -1,4 +1,4 @@
-package vendingmachine.service;
+package vendingmachine.domain;
 
 import org.junit.jupiter.api.Test;
 import vendingmachine.Coin;

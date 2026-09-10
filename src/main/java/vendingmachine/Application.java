@@ -1,7 +1,7 @@
 package vendingmachine;
 
 import vendingmachine.domain.*;
-import vendingmachine.service.CoinGenerator;
+import vendingmachine.domain.CoinGenerator;
 import vendingmachine.ui.InputView;
 import vendingmachine.ui.OutputView;
 
