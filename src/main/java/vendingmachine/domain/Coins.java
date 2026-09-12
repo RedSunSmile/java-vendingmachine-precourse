@@ -1,7 +1,5 @@
 package vendingmachine.domain;
 
-import vendingmachine.Coin;
-
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
@@ -42,8 +40,8 @@ public class Coins {
     private List<Integer> availableCoins(int amount) {
         List<Integer> changeMoney = new ArrayList<>();
         for (Coin coin : Coin.values()) {
-            if (coin.getAmount() <= amount && countOf(coin) > 0) {
-                changeMoney.add(coin.getAmount());
+            if (coin.takeAmount() <= amount && countOf(coin) > 0) {
+                changeMoney.add(coin.takeAmount());
             }
         }
         return changeMoney;
