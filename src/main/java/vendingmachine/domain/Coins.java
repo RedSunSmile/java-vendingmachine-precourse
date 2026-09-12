@@ -36,7 +36,7 @@ public class Coins {
         return new Coins(returned);
     }
 
-    //자판기 보유잔돈 개수세
+    //자판기 보유잔돈 개수세기
     private List<Integer> availableCoins(int amount) {
         List<Integer> changeMoney = new ArrayList<>();
         for (Coin coin : Coin.values()) {
