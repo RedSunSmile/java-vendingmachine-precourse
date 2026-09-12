@@ -8,12 +8,12 @@ import vendingmachine.ui.OutputView;
 import java.util.Map;
 
 public class VendingMachineController {
-    InputView inputView=new InputView();
-    OutputView outputView=new OutputView();
+    InputView inputView = new InputView();
+    OutputView outputView = new OutputView();
 
-    public void run(){
-        Map<Coin,Integer> coins=takeHoldingMoney();
-        Coins sources=takeKindsOfCoinsInMachine(coins);
+    public void run() {
+        Map<Coin, Integer> coins = takeHoldingMoney();
+        Coins sources = takeKindsOfCoinsInMachine(coins);
         String productInput = inputView.inputOfProduct();
         Products products = new Products(productInput);
 
@@ -27,7 +27,7 @@ public class VendingMachineController {
 
     private void changeAboutInsertedMoney(InsertedAmount insertedAmount, Coins sources) {
         outputView.insertedAmount(insertedAmount.takeAmount());
-        Coins changes= sources.change(insertedAmount.takeAmount());
+        Coins changes = sources.change(insertedAmount.takeAmount());
         outputView.returnedCoins(changes);
     }
 
@@ -39,17 +39,21 @@ public class VendingMachineController {
         }
     }
 
-    private Coins takeKindsOfCoinsInMachine(Map<Coin,Integer> coins) {
+    private Coins takeKindsOfCoinsInMachine(Map<Coin, Integer> coins) {
         Coins sources = new Coins(coins);
         outputView.coinsInVendingMachine(sources);
         return sources;
     }
 
-    private Map<Coin,Integer> takeHoldingMoney() {
-        CoinGenerator coinGenerator = new CoinGenerator();
-        HoldingAmount holdingAmount = new HoldingAmount(inputView.inputOfVendingMachine());
-        Map<Coin, Integer> coins = coinGenerator.generate(holdingAmount.getAmount());
-        return coins;
+    private Map<Coin, Integer> takeHoldingMoney() {
+        try {
+            HoldingAmount holdingAmount = new HoldingAmount(inputView.inputOfVendingMachine());
+            CoinGenerator coinGenerator = new CoinGenerator();
+            return coinGenerator.generate(holdingAmount.takeAmount());
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.getMessage());
+            return takeHoldingMoney();
+        }
     }
 
 }
