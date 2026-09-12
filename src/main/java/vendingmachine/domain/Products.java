@@ -14,6 +14,10 @@ public class Products {
         String result = input.replace("[", "");
         String result2 = result.replace("]", "");
         String[] parts = result2.split(",");
+
+        if (parts.length != 3) {
+            throw new IllegalArgumentException("[ERROR] 상품 형식이 올바르지 않습니다.");
+        }
         String name = parts[0];
         int price = Integer.parseInt(parts[1]);
         int counts = Integer.parseInt(parts[2]);
@@ -50,7 +54,7 @@ public class Products {
     public int minPrice() {
         int min = Integer.MAX_VALUE;
         for (Product product : products) {
-            if (product.takePrice() < min)
+            if (!product.isSoldOut() && product.takePrice() < min) //품절제외 & 음료금액 부족할 때 =>최저가고르기
                 min = product.takePrice();
         }
         return min;
