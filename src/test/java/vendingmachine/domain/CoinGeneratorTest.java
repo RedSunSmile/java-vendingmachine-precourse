@@ -1,7 +1,6 @@
 package vendingmachine.domain;
 
 import org.junit.jupiter.api.Test;
-import vendingmachine.Coin;
 
 import java.util.Map;
 
@@ -14,7 +13,7 @@ public class CoinGeneratorTest {
         Map<Coin, Integer> coins = new CoinGenerator().generate(450);
         int sum=0;
         for (Coin coin : Coin.values()) {
-            sum+= coin.getAmount()*coins.get(coin);
+            sum+= coin.takeAmount()*coins.get(coin);
 
         }
         assertThat(sum).isEqualTo(450);

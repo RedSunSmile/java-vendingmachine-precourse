@@ -1,6 +1,6 @@
 package vendingmachine.controller;
 
-import vendingmachine.Coin;
+import vendingmachine.domain.Coin;
 import vendingmachine.domain.*;
 import vendingmachine.ui.InputView;
 import vendingmachine.ui.OutputView;
@@ -14,15 +14,33 @@ public class VendingMachineController {
     public void run() {
         Map<Coin, Integer> coins = takeHoldingMoney();
         Coins sources = takeKindsOfCoinsInMachine(coins);
-        String productInput = inputView.inputOfProduct();
-        Products products = new Products(productInput);
+        Products products = takeProducts();
 
-        int insertedMoney = inputView.inputOfMoney();
-        InsertedAmount insertedAmount = new InsertedAmount(insertedMoney);
+        InsertedAmount insertedAmount = takeInsertedAmount();
         VendingMachine vendingMachine = new VendingMachine(products, insertedAmount);
 
         checkStartOrEndAboutMachine(vendingMachine, insertedAmount);
         changeAboutInsertedMoney(insertedAmount, sources);
+    }
+
+    private Products takeProducts() {
+        try{
+            return new Products(inputView.inputOfProduct());
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            return takeProducts();
+        }
+    }
+
+    private InsertedAmount takeInsertedAmount() {
+        try {
+            int insertedMoney = inputView.inputOfMoney();
+            InsertedAmount insertedAmount = new InsertedAmount(insertedMoney);
+            return insertedAmount;
+        }catch(IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            return takeInsertedAmount();
+        }
     }
 
     private void changeAboutInsertedMoney(InsertedAmount insertedAmount, Coins sources) {
@@ -34,8 +52,16 @@ public class VendingMachineController {
     private void checkStartOrEndAboutMachine(VendingMachine vendingMachine, InsertedAmount insertedAmount) {
         while (!vendingMachine.isFinished()) {
             outputView.insertedAmount(insertedAmount.takeAmount());
-            String itemName = inputView.inputOfItemName();
-            vendingMachine.buy(itemName);
+           buyItem(vendingMachine);
+        }
+    }
+
+    private void buyItem(VendingMachine vendingMachine) {
+        try {
+            vendingMachine.buy(inputView.inputOfItemName());
+        }catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+            buyItem(vendingMachine);
         }
     }
 

@@ -16,4 +16,5 @@ public class HoldingAmount {
     public int takeAmount() {
         return amount;
     }
+
 }

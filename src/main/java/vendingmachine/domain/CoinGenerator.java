@@ -1,7 +1,6 @@
 package vendingmachine.domain;
 
 import camp.nextstep.edu.missionutils.Randoms;
-import vendingmachine.Coin;
 
 import java.util.*;
 
@@ -32,8 +31,8 @@ public class CoinGenerator {
     private static List<Integer> candidatesUnder(int remain) {
         List<Integer> candidates = new ArrayList<>();
         for (Coin coin : Coin.values()) {
-            if (coin.getAmount() <= remain) {
-                candidates.add(coin.getAmount());
+            if (coin.takeAmount() <= remain) {
+                candidates.add(coin.takeAmount());
             }
         }
         return candidates;
