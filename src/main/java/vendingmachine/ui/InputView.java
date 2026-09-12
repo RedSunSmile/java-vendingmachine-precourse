@@ -2,13 +2,11 @@ package vendingmachine.ui;
 
 import camp.nextstep.edu.missionutils.Console;
 
-
 public class InputView {
 
     public int inputOfVendingMachine() {
         System.out.println("자판기가 보유하고 있는 금액을 입력해 주세요.");
-        int numbers = Integer.parseInt(Console.readLine());
-        return numbers;
+        return toNumber(Console.readLine());
     }
 
     public String inputOfProduct() {
@@ -18,8 +16,8 @@ public class InputView {
 
     public int inputOfMoney() {
         System.out.println("투입 금액을 입력해 주세요.");
-        int price = Integer.parseInt(Console.readLine());
-        return price;
+        return toNumber(Console.readLine());
+
     }
 
     public String inputOfItemName() {
@@ -28,5 +26,12 @@ public class InputView {
         return items;
     }
 
+    private int toNumber(String input) {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("[ERROR] 숫자를 입력해 주세요.");
+        }
+    }
 }
 
