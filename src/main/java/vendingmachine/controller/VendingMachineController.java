@@ -12,34 +12,33 @@ public class VendingMachineController {
     OutputView outputView = new OutputView();
 
     public void run() {
-        Map<Coin, Integer> coins = takeHoldingMoney();
-        Coins sources = takeKindsOfCoinsInMachine(coins);
-        Products products = takeProducts();
+        Map<Coin, Integer> coins = readHoldingCoins();
+        Coins sources = new Coins(coins);
+        outputView.coinsInVendingMachine(sources);
+        Products products = readProducts();
 
-        InsertedAmount insertedAmount = takeInsertedAmount();
+        InsertedAmount insertedAmount = readInsertedAmount();
         VendingMachine vendingMachine = new VendingMachine(products, insertedAmount);
 
         checkStartOrEndAboutMachine(vendingMachine, insertedAmount);
         changeAboutInsertedMoney(insertedAmount, sources);
     }
 
-    private Products takeProducts() {
-        try{
+    private Products readProducts() {
+        try {
             return new Products(inputView.inputOfProduct());
-        }catch(IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return takeProducts();
+            return readProducts();
         }
     }
 
-    private InsertedAmount takeInsertedAmount() {
+    private InsertedAmount readInsertedAmount() {
         try {
-            int insertedMoney = inputView.inputOfMoney();
-            InsertedAmount insertedAmount = new InsertedAmount(insertedMoney);
-            return insertedAmount;
-        }catch(IllegalArgumentException e){
+            return new InsertedAmount(inputView.inputOfMoney());
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return takeInsertedAmount();
+            return readInsertedAmount();
         }
     }
 
@@ -52,33 +51,27 @@ public class VendingMachineController {
     private void checkStartOrEndAboutMachine(VendingMachine vendingMachine, InsertedAmount insertedAmount) {
         while (!vendingMachine.isFinished()) {
             outputView.insertedAmount(insertedAmount.takeAmount());
-           buyItem(vendingMachine);
+            buyItem(vendingMachine);
         }
     }
 
     private void buyItem(VendingMachine vendingMachine) {
         try {
             vendingMachine.buy(inputView.inputOfItemName());
-        }catch (IllegalArgumentException e){
+        } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
             buyItem(vendingMachine);
         }
     }
 
-    private Coins takeKindsOfCoinsInMachine(Map<Coin, Integer> coins) {
-        Coins sources = new Coins(coins);
-        outputView.coinsInVendingMachine(sources);
-        return sources;
-    }
-
-    private Map<Coin, Integer> takeHoldingMoney() {
+    private Map<Coin, Integer> readHoldingCoins() {
         try {
             HoldingAmount holdingAmount = new HoldingAmount(inputView.inputOfVendingMachine());
             CoinGenerator coinGenerator = new CoinGenerator();
             return coinGenerator.generate(holdingAmount.takeAmount());
         } catch (IllegalArgumentException e) {
             System.out.println(e.getMessage());
-            return takeHoldingMoney();
+            return readHoldingCoins();
         }
     }
 
