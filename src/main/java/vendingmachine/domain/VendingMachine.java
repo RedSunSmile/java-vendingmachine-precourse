@@ -9,18 +9,18 @@ public class VendingMachine {
         this.insertedAmount = insertedAmount;
     }
 
-    public void buy(String name){
-        Product product=products.findByName(name);
+    public void buy(String name) {
+        Product product = products.findByName(name);
         validateBuyable(product);
         insertedAmount.subtract(product.takePrice());
         product.reduceCount();
     }
 
-    private void validateBuyable(Product product){
-        if(product.isSoldOut()){
+    private void validateBuyable(Product product) {
+        if (product.isSoldOut()) {
             throw new IllegalArgumentException("[ERROR] 품절된 상품입니다.");
         }
-        if(insertedAmount.isLessThan(product.takePrice())){
+        if (insertedAmount.isLessThan(product.takePrice())) {
             throw new IllegalArgumentException("[ERROR] 투입 금액이 부족합니다.");
         }
     }
