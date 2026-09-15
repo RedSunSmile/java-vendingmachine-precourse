@@ -1,7 +1,13 @@
 package vendingmachine.domain;
 
+import static vendingmachine.domain.HoldingAmount.toNumber;
+
 public class InsertedAmount {
     private int insertedMoney;
+
+    public InsertedAmount(String input) {
+        this(toNumber(input));
+    }
 
     public InsertedAmount(int insertedMoney) {
         if (insertedMoney < 0) {
@@ -24,7 +30,7 @@ public class InsertedAmount {
         return insertedMoney < price;
     }
 
-    public int takeAmount(){
+    public int takeAmount() {
         return insertedMoney;
     }
 
