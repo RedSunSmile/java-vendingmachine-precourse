@@ -1,5 +1,7 @@
 package vendingmachine.domain;
 
+import java.util.Arrays;
+
 public enum Coin {
     COIN_500(500),
     COIN_100(100),
@@ -19,11 +21,10 @@ public enum Coin {
     }
 
     public static Coin from(int amount) {
-        for (Coin coin : values()) {
-            if (coin.amount == amount) {
-                return coin;
-            }
-        }
-        throw new IllegalArgumentException("[ERROR] 존재하지 않는 동전입니다.");
+        return Arrays.stream(values())
+                .filter(coin -> coin.amount == amount)
+                .findFirst()
+                .orElseThrow(() -> new IllegalArgumentException("[ERROR] 존재하지 않는 동전입니다."));
     }
+
 }

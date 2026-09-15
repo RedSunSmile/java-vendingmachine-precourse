@@ -1,9 +1,6 @@
 package vendingmachine.domain;
 
-import java.util.ArrayList;
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Coins {
     private final Map<Coin, Integer> coins;
@@ -38,14 +35,11 @@ public class Coins {
 
     //자판기 보유잔돈 개수세기
     private List<Integer> availableCoins(int amount) {
-        List<Integer> changeMoney = new ArrayList<>();
-        for (Coin coin : Coin.values()) {
-            if (coin.takeAmount() <= amount && countOf(coin) > 0) {
-                changeMoney.add(coin.takeAmount());
-            }
-        }
-        return changeMoney;
-    }
+        return Arrays.stream(Coin.values())
+                .filter(coin -> coin.takeAmount() <= amount && countOf(coin) > 0)
+                .map(coin -> coin.takeAmount())
+                .toList();
 
+    }
 
 }

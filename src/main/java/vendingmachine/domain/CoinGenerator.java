@@ -27,14 +27,11 @@ public class CoinGenerator {
         }
     }
 
-//자판기 보유잔돈 새로만들기
+    //자판기 보유잔돈 새로만들기
     private static List<Integer> candidatesUnder(int remain) {
-        List<Integer> candidates = new ArrayList<>();
-        for (Coin coin : Coin.values()) {
-            if (coin.takeAmount() <= remain) {
-                candidates.add(coin.takeAmount());
-            }
-        }
-        return candidates;
+        return Arrays.stream(Coin.values())
+                .map(Coin::takeAmount)
+                .filter(candidates -> candidates <= remain)
+                .toList();
     }
 }
